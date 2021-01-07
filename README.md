@@ -8,7 +8,6 @@ To install from github, run
 #install.packages("devtools")
 
 library("devtools")
-<<<<<<< HEAD
 install_github("annaplaksienko/jewel")
 ```
 
