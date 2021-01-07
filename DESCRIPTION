@@ -1,0 +1,13 @@
+Package: jewel
+Title: Joint node-wise estimation of Gaussian graphical models from multiple datasets
+Version: 0.1.0
+Author: Anna Plaksienko, Claudia Angelini, Daniela De Canditiis
+Maintainer: Anna Plaksienko <anna@plaxienko.com>           
+Description: jewel is a method for joint estimation of the graph of conditional dependencies between variables given multiple classes of data. Package also allows to estimate regularization parameter with Bayesian information criterion and cross-validation and to generate simulation data. Reference paper to be added.
+Depends: R (>= 3.6.0)
+Imports: Matrix, matrixcalc, MASS, SMUT, igraph, rlist,  parallel, purrr
+URL: https://github.com/annaplaksienko/jewel
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1

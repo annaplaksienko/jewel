@@ -45,9 +45,3 @@ message("True graph has ", edges, " edges and ", noedges, " absence of edges.")
 evaluatePerformance(G = G_true, G_hat = G_BIC)
 evaluatePerformance(G = G_true, G_hat = G_CV)
 ```
-=======
-
-install_github("annaplaksienko/jewel/jewel")
-
-File main_jewel.R contains a minimal working example of all the functions of the package.
->>>>>>> 033d0ddcf8c9e8ed301eb716262f1cb66730e90d
