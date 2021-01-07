@@ -1,4 +1,4 @@
-#' Generate a ''true'' graph and corresponding data matrices
+#' Generate a scale-free graph and corresponding datasets using it as their Gaussian graphical model
 #'
 #' Function generates a scale-free graph with \code{p} vertices, \code{K} corresponding precision and covariance matrices, all of dize \code{p} by \code{p}
 #' and then for each \code{l}-th element of vector \code{n} generates \code{K} data matrices of size \code{n_l} by \code{p}. For the same underlying graph we can generate several datasets with different sample sizes.

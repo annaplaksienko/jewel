@@ -13,7 +13,7 @@ install_github("annaplaksienko/jewel")
 
 ## Example
 
-This is a very minimal working example of all **jewel** package functions.
+This is a very minimal working example of all **jewel** package functions. See jewel.pdf for documentation of the package.
 
 ```
 library(jewel)
