@@ -8,9 +8,9 @@
 #' @param p Number of nodes in the true graph.
 #' @param power Power of preferential attachment for Barabasi-Albert algorithm for generation of scale-free graph.
 #' @param m Number of edges to add in each time step of Barabasi-Albert algorithm for generation of scale-free graph.
-#' @param c Entries in precision matrices are generated from the uniform distribution on the interval \code{[-d, -c] + [c, d]}. The default value is \code{c = 0.2}.
-#' @param d Entries in precision matrices are generated from the uniform distribution on the interval \code{[-d, -c] + [c, d]}. The default value is \code{d = 0.8}.
-#' @param makePlot If makePlot = FALSE, plotting of the generated true graph is disabled. The default value is TRUE.
+#' @param a Entries in precision matrices are generated from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{c = 0.2}.
+#' @param b Entries in precision matrices are generated from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{d = 0.8}.
+#' @param akePlot If makePlot = FALSE, plotting of the generated true graph is disabled. The default value is TRUE.
 #' @param verbose If verbose = FALSE, tracing information printing is disabled. The default value is TRUE.
 #'
 #' @importFrom igraph barabasi.game as_adjacency_matrix graph_from_adjacency_matrix plot.igraph
@@ -32,16 +32,16 @@
 #' @export
 
 generateData <- function (K, n, p,
-                          power = 1, m = 1, c = 0.2, d = 0.8,
+                          power = 1, m = 1, a = 0.2, b = 0.8,
                           makePlot = TRUE, verbose = TRUE) {
 
   generation <- function(k) {
 
     #change all non-zero entries to samples from uniform distribution
-    #on the interval [a, b] united [c, d]
+    #on the interval [d, c] united [a, b]
 
     samp1 <- runif(nn / 2, a, b)
-    samp2 <- runif(nn / 2, c, d)
+    samp2 <- runif(nn / 2, d, c)
     new_entries <- sample(c(samp1, samp2))
 
     #precision matrices
@@ -100,16 +100,16 @@ generateData <- function (K, n, p,
   if (verbose) message("2/3 Completed. Constructing precision matrices...")
 
   #boundaries for sampling from uniform distribution
-  # a < b < c< d
-  a <- -d;
-  b <- -c;
+  # d < c < a < b
+  c <- -a;
+  d <- -b;
 
 
   if (.Platform$OS.type == "windows") {
     ncores <-  1
   } else ncores <- detectCores() - 1
 
-
+  
   data <- mclapply(c(1:K), generation, mc.cores = ncores)
 
   X <- transpose(lapply(data, function(x) x$X))
