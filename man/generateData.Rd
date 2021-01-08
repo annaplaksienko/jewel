@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateData.R
 \name{generateData}
 \alias{generateData}
-\title{Generate a ''true'' graph and corresponding data matrices}
+\title{Generation of a scale-free graph and corresponding datasets using the graph as their Gaussian graphical model}
 \usage{
 generateData(
   K,
@@ -10,8 +10,8 @@ generateData(
   p,
   power = 1,
   m = 1,
-  c = 0.2,
-  d = 0.8,
+  a = 0.2,
+  b = 0.8,
   makePlot = TRUE,
   verbose = TRUE
 )
@@ -19,17 +19,17 @@ generateData(
 \arguments{
 \item{K}{Number of data matrices}
 
-\item{n}{Vector of the sample sizes for each desired set of data matrices. Can be a vector of one element.}
+\item{n}{Vector of the sample sizes for each desired set of \code{K} data matrices. Can be a vector of one element if one wishes to obtain only one dataset of \code{K} matrices.}
 
-\item{p}{Number of nodes in the true graph.}
+\item{p}{Number of nodes in the true graph}
 
-\item{power}{Power of preferential attachment for Barabasi-Albert algorithm for generation of scale-free graph.}
+\item{power}{Power of preferential attachment for Barabasi-Albert algorithm for generation of the scale-free graph}
 
-\item{m}{Number of edges to add in each time step of Barabasi-Albert algorithm for generation of scale-free graph.}
+\item{m}{Number of edges to add at each time step of Barabasi-Albert algorithm for generation of the scale-free graph. Resulting graph has \code{mp - (2m - 1)} edges.}
 
-\item{c}{Entries in precision matrices are generated from the uniform distribution on the interval \code{[-d, -c] + [c, d]}. The default value is \code{c = 0.2}.}
+\item{a}{Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{a = 0.2}.}
 
-\item{d}{Entries in precision matrices are generated from the uniform distribution on the interval \code{[-d, -c] + [c, d]}. The default value is \code{d = 0.8}.}
+\item{b}{Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{b = 0.8}.}
 
 \item{makePlot}{If makePlot = FALSE, plotting of the generated true graph is disabled. The default value is TRUE.}
 
@@ -38,12 +38,13 @@ generateData(
 \value{
 The following list is returned
  \itemize{
-   \item trueGraph - sparse adjacency matrix of the true graph
-   \item data - list of lists, \code{K} data matrices of the size \code{n_l} by \code{p} for each sample size element \code{l} of the input vector \code{n}
-   \item Sigma - list of \code{K} covariance matrices of the size \code{p} by \code{p}
+   \item \code{trueGraph} - sparse adjacency matrix of the true graph
+   \item \code{data} - list of lists, for each sample size element \code{l} of the input vector \code{n} one obtains \code{K} data matrices, each of the size \code{n_l} by \code{p}
+   \item \code{Sigma} - list of \code{K} covariance matrices of the size \code{p} by \code{p}
 }
 }
 \description{
-Function generates a scale-free graph with \code{p} vertices, \code{K} corresponding precision and covariance matrices, all of dize \code{p} by \code{p}
-and then for each \code{l}-th element of vector \code{n} generates \code{K} data matrices of size \code{n_l} by \code{p}. For the same underlying graph we can generate several datasets with different sample sizes.
+Function generates a scale-free graph with \code{p} vertices and \code{K} corresponding precision and covariance matrices, all of the size \code{p} by \code{p}.
+Then for each \code{l}-th element of vector \code{n} it generates \code{K} data matrices, each of the size \code{n_l} by \code{p}, 
+i.e., for the same underlying graph we can generate several sets of \code{K} datasets with different sample sizes.
 }

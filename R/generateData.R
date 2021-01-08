@@ -1,16 +1,17 @@
-#' Generate a scale-free graph and corresponding datasets using it as their Gaussian graphical model
+#' Generation of a scale-free graph and corresponding datasets using the graph as their Gaussian graphical model
 #'
-#' Function generates a scale-free graph with \code{p} vertices, \code{K} corresponding precision and covariance matrices, all of dize \code{p} by \code{p}
-#' and then for each \code{l}-th element of vector \code{n} generates \code{K} data matrices of size \code{n_l} by \code{p}. For the same underlying graph we can generate several datasets with different sample sizes.
+#' Function generates a scale-free graph with \code{p} vertices and \code{K} corresponding precision and covariance matrices, all of the size \code{p} by \code{p}.
+#' Then for each \code{l}-th element of vector \code{n} it generates \code{K} data matrices, each of the size \code{n_l} by \code{p}, 
+#' i.e., for the same underlying graph we can generate several sets of \code{K} datasets with different sample sizes.
 #'
+#' @param p Number of nodes in the true graph
 #' @param K Number of data matrices
-#' @param n Vector of the sample sizes for each desired set of data matrices. Can be a vector of one element.
-#' @param p Number of nodes in the true graph.
-#' @param power Power of preferential attachment for Barabasi-Albert algorithm for generation of scale-free graph.
-#' @param m Number of edges to add in each time step of Barabasi-Albert algorithm for generation of scale-free graph.
-#' @param a Entries in precision matrices are generated from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{c = 0.2}.
-#' @param b Entries in precision matrices are generated from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{d = 0.8}.
-#' @param akePlot If makePlot = FALSE, plotting of the generated true graph is disabled. The default value is TRUE.
+#' @param n Vector of the sample sizes for each desired set of \code{K} data matrices. Can be a vector of one element if one wishes to obtain only one dataset of \code{K} matrices.
+#' @param power Power of preferential attachment for Barabasi-Albert algorithm for generation of the scale-free graph
+#' @param m Number of edges to add at each time step of Barabasi-Albert algorithm for generation of the scale-free graph. Resulting graph has \code{mp - (2m - 1)} edges.
+#' @param a Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{a = 0.2}.
+#' @param b Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{b = 0.8}.
+#' @param makePlot If makePlot = FALSE, plotting of the generated true graph is disabled. The default value is TRUE.
 #' @param verbose If verbose = FALSE, tracing information printing is disabled. The default value is TRUE.
 #'
 #' @importFrom igraph barabasi.game as_adjacency_matrix graph_from_adjacency_matrix plot.igraph
@@ -25,9 +26,9 @@
 #'
 #' @return The following list is returned
 #'  \itemize{
-#'    \item trueGraph - sparse adjacency matrix of the true graph
-#'    \item data - list of lists, \code{K} data matrices of the size \code{n_l} by \code{p} for each sample size element \code{l} of the input vector \code{n}
-#'    \item Sigma - list of \code{K} covariance matrices of the size \code{p} by \code{p}
+#'    \item \code{trueGraph} - sparse adjacency matrix of the true graph
+#'    \item \code{data} - list of lists, for each sample size element \code{l} of the input vector \code{n} one obtains \code{K} data matrices, each of the size \code{n_l} by \code{p}
+#'    \item \code{Sigma} - list of \code{K} covariance matrices of the size \code{p} by \code{p}
 #' }
 #' @export
 
@@ -97,7 +98,7 @@ generateData <- function (K, n, p,
 
   nn <- sum(G)
 
-  if (verbose) message("2/3 Completed. Constructing precision matrices...")
+  if (verbose) message("2/3 Completed. Constructing the data...")
 
   #boundaries for sampling from uniform distribution
   # d < c < a < b

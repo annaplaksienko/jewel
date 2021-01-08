@@ -1,20 +1,21 @@
-#' Estimation of optimal lambda parameter for jewel method with Bayesian information criterion
+#' Estimation of the optimal regularization parameter for jewel method with Bayesian information criterion
 #'
-#' Given a grid of lambda parameters, function evaluates Baeysian information criterion for each element.
-#' Optimal lambda is chosen as a BIC's minimum. Warm start is implemented.
+#' Given a grid of regularization parameters, function evaluates Baeysian information criterion (BIC) for each element.
+#' Optimal lambda is chosen as the one for which BIC's minimum is obtained. Warm start is implemented.
 #'
-#' @param X list of \code{K} data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each class)
-#' @param lambda vector of grid lambda parameters for which function evaluates BIC
+#' @param X list of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)
+#' @param lambda vector of parameters for which function evaluates BIC
+#' @param makePlot If makePlot = FALSE, plotting of BIC is disabled. The default value is TRUE.
 #'
 #' @return The following list is returned
 #' \itemize{
-#'   \item lambda_opt - a number, optimal value of regularization parameter according to BIC procedure
-#'   \item CV_err - a vector of cross-validation erros for each element of input vector \code{lambda}.
+#'   \item \code{lambda_opt} - a number, optimal value of regularization parameter according to BIC procedure;
+#'   \item \code{BIC} - a vector of BICs for each element of input vector \code{lambda}.
 #' }
 #'
 #' @export
 
-estimateLambdaBIC <- function (X, lambda) {
+estimateLambdaBIC <- function (X, lambda, makePlot = TRUE) {
 
   message("1/4 Starting iterations over lambda. Iteration number...")
 
@@ -45,9 +46,11 @@ estimateLambdaBIC <- function (X, lambda) {
 
   message(paste0("3/4 BIC optimal lambda is ", lambda_opt_BIC, ". Generating the plot..."))
 
-  plot(lambda, BIC, type = "p", col = "blue");
-  points(lambda_opt_BIC, BIC[which.min(BIC)], col = "red");
-
+  if (makePlot == TRUE) {
+    plot(lambda, BIC, type = "p", col = "blue");
+    points(lambda_opt_BIC, BIC[which.min(BIC)], col = "red");
+  }
+    
   message("4/4 Completed.")
 
   return(list(lambda_opt = lambda_opt_BIC,

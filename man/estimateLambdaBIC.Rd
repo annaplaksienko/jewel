@@ -2,23 +2,25 @@
 % Please edit documentation in R/estimateLambdaBIC.R
 \name{estimateLambdaBIC}
 \alias{estimateLambdaBIC}
-\title{Estimation of optimal lambda parameter for jewel method with Bayesian information criterion}
+\title{Estimation of the optimal regularization parameter for jewel method with Bayesian information criterion}
 \usage{
-estimateLambdaBIC(X, lambda)
+estimateLambdaBIC(X, lambda, makePlot = TRUE)
 }
 \arguments{
-\item{X}{list of \code{K} data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each class)}
+\item{X}{list of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)}
 
-\item{lambda}{vector of grid lambda parameters for which function evaluates BIC}
+\item{lambda}{vector of parameters for which function evaluates BIC}
+
+\item{makePlot}{If makePlot = FALSE, plotting of BIC is disabled. The default value is TRUE.}
 }
 \value{
 The following list is returned
 \itemize{
-  \item lambda_opt - a number, optimal value of regularization parameter according to BIC procedure
-  \item CV_err - a vector of BICs for each element of input vector \code{lambda}
+  \item \code{lambda_opt} - a number, optimal value of regularization parameter according to BIC procedure;
+  \item \code{BIC} - a vector of BICs for each element of input vector \code{lambda}.
 }
 }
 \description{
-Given a grid of lambda parameters, function evaluates Baeysian information criterion for each element.
-Optimal lambda is chosen as a point where BIC reaches its minimum. Warm start is implemented.
+Given a grid of regularization parameters, function evaluates Baeysian information criterion (BIC) for each element.
+Optimal lambda is chosen as the one for which BIC's minimum is obtained. Warm start is implemented.
 }

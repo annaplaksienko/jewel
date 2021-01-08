@@ -2,32 +2,33 @@
 % Please edit documentation in R/jewel.R
 \name{jewel}
 \alias{jewel}
-\title{Joint node-wise estimation of multiple Gaussian graphical models}
+\title{Joint node-wise estimation of Gaussian graphical model from multiple datasets}
 \usage{
 jewel(X, lambda, Theta = NULL, reltol = 0.01, maxIter = 10000, verbose = TRUE)
 }
 \arguments{
-\item{X}{List of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each class).}
+\item{X}{List of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix).}
 
-\item{lambda}{Tuning parameter which controls the sparsity of the resulting graph - bigger it is, less edges you get.}
+\item{lambda}{Regularization parameter which controls the sparsity of the resulting graph - bigger it is, less edges one gets.}
 
 \item{Theta}{List of \code{K} starting regression coefficient matrices of size \code{p} by \code{p}. If not provided, initialized as all zeros.}
 
-\item{reltol}{Convergence threshold controlling relative error between iterations. The default value is 0.01.}
+\item{reltol}{Convergence threshold controlling the relative error between iterations. The default value is 0.01.}
 
-\item{maxIter}{Maximum allowed number of iterations. The default  value is 10 000.}
+\item{maxIter}{Maximum allowed number of iterations. The default value is 10 000.}
 
 \item{verbose}{If verbose = FALSE, tracing information printing is disabled. The default value is TRUE.}
 }
 \value{
 The following list is returned
 \itemize{
-  \item EstAdjMat - adjacency matrix of the estimated graph
-  \item Theta - list of \code{K} estimated covariance matrices of size \code{p} by \code{p}
-  \item BIC - value of Bayesian information criterion
-  \item residual - list of \code{K} resulting residuals X - X * Theta of size  \code{n} by \code{p}
+  \item \code{EstAdjMat} - adjacency matrix of the estimated graph
+  \item \code{Theta} - list of \code{K} estimated covariance matrices of size \code{p} by \code{p}
+  \item \code{residual} - list of \code{K} matrices of residuals of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)
+  \item \code{BIC} - value of Bayesian information criterion
 }
 }
 \description{
-Method for estimating the graph of conditional depndencies between the variables given multiple dataset (observations of variables under different conditiona or collected in distinct classes).
+Implementation of the jewel method for estimation of the graph of conditional dependencies between the variables given multiple datasets, 
+i.e. when observations of variables are collected under different conditions.
 }

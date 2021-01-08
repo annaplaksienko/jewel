@@ -1,9 +1,11 @@
-#' Estimation of optimal lambda parameter for jewel method based on cross-validation
+#' Estimation of the optimal regularization parameter for jewel method based on cross-validation
 #'
-#' Given a grid of lambda parameters, function performs cross-validation and finds the optimal one. Parallelization over folds and warm start are implemented.
+#' Given a grid of regulariation parameters, function performs cross-validation and 
+#' estimates the optimal parameter is the one for which the cross-validation error's minimum is obtained. 
+#' Parallelization over folds and warm start are implemented.
 #'
-#' @param X list of \code{K} data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each class)
-#' @param lambda vector of grid lambda parameters over which cross-validation is performed
+#' @param X list of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)
+#' @param lambda vector of parameters over which cross-validation is performed
 #' @param k_folds number of folds in which data is divided. The default value is 5.
 #' @param verbose If verbose = FALSE, tracing information printing is disabled. The default value is TRUE.
 #' @param makePlot If makePlot = FALSE, plotting of CV error is disabled. The default value is TRUE.
@@ -13,8 +15,8 @@
 #'
 #' @return The following list is returned
 #' \itemize{
-#'   \item lambda_opt - a number, optimal value of regularization parameter according to cross-validation procedure
-#'   \item CV_err - a vector of cross-validation errors for each element of input vector \code{lambda}
+#'   \item \code{lambda_opt} - a number, optimal value of regularization parameter according to cross-validation procedure;
+#'   \item \code{CV_err} - a vector of cross-validation errors for each element of input vector \code{lambda}
 #' }
 #'
 #' @export

@@ -2,14 +2,14 @@
 % Please edit documentation in R/estimateLambdaCV.R
 \name{estimateLambdaCV}
 \alias{estimateLambdaCV}
-\title{Estimation of optimal lambda parameter for jewel method based on cross-validation}
+\title{Estimation of the optimal regularization parameter for jewel method based on cross-validation}
 \usage{
 estimateLambdaCV(X, lambda, k_folds = 5, verbose = TRUE, makePlot = TRUE)
 }
 \arguments{
-\item{X}{list of \code{K} data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each class)}
+\item{X}{list of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)}
 
-\item{lambda}{vector of grid lambda parameters over which cross-validation is performed}
+\item{lambda}{vector of parameters over which cross-validation is performed}
 
 \item{k_folds}{number of folds in which data is divided. The default value is 5.}
 
@@ -20,10 +20,12 @@ estimateLambdaCV(X, lambda, k_folds = 5, verbose = TRUE, makePlot = TRUE)
 \value{
 The following list is returned
 \itemize{
-  \item lambda_opt - a number, optimal value of regularization parameter according to cross-validation procedure
-  \item CV_err - a vector of cross-validation erros for each element of input vector \code{lambda}
+  \item \code{lambda_opt} - a number, optimal value of regularization parameter according to cross-validation procedure;
+  \item \code{CV_err} - a vector of cross-validation errors for each element of input vector \code{lambda}
 }
 }
 \description{
-Given a grid of lambda parameters, function performs cross-validation and finds the optimal one. Parallelization over folds and warm start is implemented.
+Given a grid of regulariation parameters, function performs cross-validation and 
+estimates the optimal parameter is the one for which the cross-validation error's minimum is obtained. 
+Parallelization over folds and warm start are implemented.
 }
