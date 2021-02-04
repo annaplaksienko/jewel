@@ -140,6 +140,7 @@ jewel <- function (X, lambda, Theta = NULL,
           sum(sapply(n_k, log)) * (sum(active) / 2)
 
   active <- addZeroDiagonal(active)
+  colnames(active) <- rownames(active) <- colnames(X[[1]])
 
   Theta_list <- rep(list(NA), K)
 

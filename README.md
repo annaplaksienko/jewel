@@ -28,7 +28,7 @@ G_true <- data$trueGraph
 X <- data$data
 
 #generate the grid of lambda
-lambda <- generateLambdaGrid(X, n = 10)
+lambda <- generateLambdaGrid(X, nlambda = 10)
 
 #estimate regularization parameter with two procedures
 lambda_BIC <- estimateLambdaBIC(X, lambda)$lambda_opt

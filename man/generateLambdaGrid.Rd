@@ -4,12 +4,12 @@
 \alias{generateLambdaGrid}
 \title{Generation of the sequence of regularization parameters}
 \usage{
-generateLambdaGrid(X, n = 50, eps = 0.1, scale = TRUE)
+generateLambdaGrid(X, nlambda = 50, eps = 0.1, scale = TRUE)
 }
 \arguments{
 \item{X}{list of \code{K} numeric data matrices of size \code{n_k} by {p} (\code{n_k} can be different for each matrix)}
 
-\item{n}{desired number of parameters. The default value is 50.}
+\item{nlambda}{desired number of parameters. The default value is 50.}
 
 \item{eps}{lambda_min = lambda_max * eps. The default value is 0.1}
 
