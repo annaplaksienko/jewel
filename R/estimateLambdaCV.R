@@ -72,7 +72,7 @@ estimateLambdaCV <- function (X, lambda, k_folds = 5, verbose = TRUE, makePlot =
   if (verbose) message("2/4 Completed. Starting cross-validation...")
 
   #start the cluster
-  ncores <-  detectCores() - 1;
+  ncores <-  detectCores(logical = FALSE) - 1;
   cl <- makeCluster(ncores, type = "SOCK")
   clusterEvalQ(cl, library("jewel"))
   clusterEvalQ(cl, library("SMUT"))

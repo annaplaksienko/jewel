@@ -107,8 +107,8 @@ generateData <- function (K, n, p,
 
 
   if (.Platform$OS.type == "windows") {
-    ncores <-  1
-  } else ncores <- detectCores() - 1
+    ncores <- 1
+  } else ncores <- detectCores(logical = FALSE) - 1
 
   
   data <- mclapply(c(1:K), generation, mc.cores = ncores)
