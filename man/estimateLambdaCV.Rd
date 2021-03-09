@@ -26,6 +26,6 @@ The following list is returned
 }
 \description{
 Given a grid of regulariation parameters, function performs cross-validation and 
-estimates the optimal parameter is the one for which the cross-validation error's minimum is obtained. 
+estimates the optimal parameter as the one for which the cross-validation error's minimum is obtained. 
 Parallelization over folds and warm start are implemented.
 }

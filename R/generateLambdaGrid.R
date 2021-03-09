@@ -4,7 +4,7 @@
 #'
 #' @param X list of \code{K} numeric data matrices of size \code{n_k} by {p} (\code{n_k} can be different for each matrix)
 #' @param nlambda desired number of parameters. The default value is 50.
-#' @param eps lambda_min = lambda_max * eps. The default value is 0.1
+#' @param eps \code{lambda_min = lambda_max * eps}. The default value is 0.1
 #' @param scale if TRUE and hence data is scaled, then resulting grid is independent of \code{X} and goes from \code{eps} to 1 uniformly in log-scale. The default value is TRUE.
 #'
 #' @return \code{lambda} - vector of regularization parameters of length \code{n}

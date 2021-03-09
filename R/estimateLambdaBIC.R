@@ -28,10 +28,10 @@ estimateLambdaBIC <- function (X, lambda, makePlot = TRUE) {
     if (l != 1) {
       GGM_result <- jewel(X, lambda[l],
                           Theta = Theta_warm_up,
-                          reltol = 0.0001,
+                          tol = 0.0001,
                           verbose = FALSE);
     } else GGM_result <- jewel(X, lambda[l],
-                                reltol = 0.0001,
+                                tol = 0.0001,
                                 verbose = FALSE);
 
     BIC[l] <- GGM_result$BIC;

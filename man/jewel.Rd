@@ -4,16 +4,16 @@
 \alias{jewel}
 \title{Joint node-wise estimation of Gaussian graphical model from multiple datasets}
 \usage{
-jewel(X, lambda, Theta = NULL, reltol = 0.01, maxIter = 10000, verbose = TRUE)
+jewel(X, lambda, Theta = NULL, tol = 0.01, maxIter = 10000, verbose = TRUE)
 }
 \arguments{
 \item{X}{List of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix).}
 
 \item{lambda}{Regularization parameter which controls the sparsity of the resulting graph - bigger it is, less edges one gets.}
 
-\item{Theta}{List of \code{K} starting regression coefficient matrices of size \code{p} by \code{p}. If not provided, initialized as all zeros.}
+\item{Theta}{List of \code{K} starting regression coefficient matrices of size \code{p} by \code{p}. If not provided, initialized as all zeros and adjacency matrix is initialized as all ones.}
 
-\item{reltol}{Convergence threshold controlling the relative error between iterations. The default value is 0.01.}
+\item{tol}{Convergence threshold controlling the relative error between iterations. The default value is 0.01.}
 
 \item{maxIter}{Maximum allowed number of iterations. The default value is 10 000.}
 

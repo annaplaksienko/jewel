@@ -1,12 +1,12 @@
 #' Joint node-wise estimation of Gaussian graphical model from multiple datasets
 #'
 #' Implementation of the jewel method for estimation of the graph of conditional dependencies between the variables given multiple datasets, 
-#' i.e. when observations of variables are collected under different conditions.
+#' i.e. when observations of variables are collected under different conditions. 
 #'
 #' @param X List of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix).
 #' @param lambda Regularization parameter which controls the sparsity of the resulting graph - bigger it is, less edges one gets.
-#' @param Theta List of \code{K} starting regression coefficient matrices of size \code{p} by \code{p}. If not provided, initialized as all zeros.
-#' @param reltol Convergence threshold controlling the relative error between iterations. The default value is 0.01.
+#' @param Theta List of \code{K} starting regression coefficient matrices of size \code{p} by \code{p}. If not provided, initialized as all zeros and adjacency matrix is initialized as all ones.
+#' @param tol Convergence threshold controlling the relative error between iterations. The default value is 0.01.
 #' @param maxIter Maximum allowed number of iterations. The default value is 10 000.
 #' @param verbose If verbose = FALSE, tracing information printing is disabled. The default value is TRUE.
 #'
@@ -24,7 +24,7 @@
 
 
 jewel <- function (X, lambda, Theta = NULL,
-                              reltol = 0.01, maxIter = 10000,
+                              tol = 0.01, maxIter = 10000,
                               verbose = TRUE) {
 
   #get number of input matrices
@@ -68,7 +68,7 @@ jewel <- function (X, lambda, Theta = NULL,
 
   if (verbose) message("1/3 Initialization completed. Starting iterations. Iteration number...")
 
-  while (numIter <= maxIter && check_conv > reltol) {
+  while (numIter <= maxIter && check_conv > tol) {
 
     numIter <- numIter + 1;
     if (verbose) message(paste0(numIter - 1));

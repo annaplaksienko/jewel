@@ -7,8 +7,8 @@
 #' @param p Number of nodes in the true graph
 #' @param K Number of data matrices
 #' @param n Vector of the sample sizes for each desired set of \code{K} data matrices. Can be a vector of one element if one wishes to obtain only one dataset of \code{K} matrices.
-#' @param power Power of preferential attachment for Barabasi-Albert algorithm for generation of the scale-free graph
-#' @param m Number of edges to add at each time step of Barabasi-Albert algorithm for generation of the scale-free graph. Resulting graph has \code{mp - (2m - 1)} edges.
+#' @param power Power of preferential attachment for Barabasi-Albert algorithm for generation of the scale-free graph. The defaut value is 1.
+#' @param m Number of edges to add at each time step of Barabasi-Albert algorithm for generation of the scale-free graph. Resulting graph has \code{mp - (2m - 1)} edges. The default value is 1 and graph has \code{p-1} edges.
 #' @param a Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{a = 0.2}.
 #' @param b Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default value is \code{b = 0.8}.
 #' @param makePlot If makePlot = FALSE, plotting of the generated true graph is disabled. The default value is TRUE.
@@ -27,12 +27,12 @@
 #' @return The following list is returned
 #'  \itemize{
 #'    \item \code{trueGraph} - sparse adjacency matrix of the true graph
-#'    \item \code{data} - list of lists, for each sample size element \code{l} of the input vector \code{n} one obtains \code{K} data matrices, each of the size \code{n_l} by \code{p}
+#'    \item \code{data} - list of lists, for each sample size (\code{l}-th element of the input vector \code{n}) one obtains \code{K} data matrices, each of the size \code{n_l} by \code{p}
 #'    \item \code{Sigma} - list of \code{K} covariance matrices of the size \code{p} by \code{p}
 #' }
 #' @export
 
-generateData <- function (K, n, p,
+generateData <- function (p, K, n,
                           power = 1, m = 1, a = 0.2, b = 0.8,
                           makePlot = TRUE, verbose = TRUE) {
 

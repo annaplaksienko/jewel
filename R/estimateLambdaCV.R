@@ -1,7 +1,7 @@
 #' Estimation of the optimal regularization parameter for jewel method based on cross-validation
 #'
 #' Given a grid of regulariation parameters, function performs cross-validation and 
-#' estimates the optimal parameter is the one for which the cross-validation error's minimum is obtained. 
+#' estimates the optimal parameter as the one for which the cross-validation error's minimum is obtained. 
 #' Parallelization over folds and warm start are implemented.
 #'
 #' @param X list of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)
@@ -26,7 +26,7 @@ estimateLambdaCV <- function (X, lambda, k_folds = 5, verbose = TRUE, makePlot =
   #parallelization of cross validation over folds with warm start
   cross_validation <- function(fold) {
 
-    reltol <- 0.0001
+    tol <- 0.0001
 
     err_lambda <- rep(NA, length(lambda))
 
@@ -37,9 +37,9 @@ estimateLambdaCV <- function (X, lambda, k_folds = 5, verbose = TRUE, makePlot =
 
       if (l > 1) {
         Theta_minus_F <- jewel(X = X_minus_F, lambda[l], Theta = Theta_minus_F,
-                                          reltol = reltol, verbose = FALSE)$Theta
+                                          tol = tol, verbose = FALSE)$Theta
       } else Theta_minus_F <- jewel(X = X_minus_F, lambda[l],
-                                               reltol = reltol, verbose = FALSE)$Theta
+                                               tol = tol, verbose = FALSE)$Theta
 
 
       err_lambda[l] <- sum(sapply(index, function(c)

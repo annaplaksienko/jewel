@@ -11,7 +11,7 @@ generateLambdaGrid(X, nlambda = 50, eps = 0.1, scale = TRUE)
 
 \item{nlambda}{desired number of parameters. The default value is 50.}
 
-\item{eps}{lambda_min = lambda_max * eps. The default value is 0.1}
+\item{eps}{\code{lambda_min = lambda_max * eps}. The default value is 0.1}
 
 \item{scale}{if TRUE and hence data is scaled, then resulting grid is independent of \code{X} and goes from \code{eps} to 1 uniformly in log-scale. The default value is TRUE.}
 }
