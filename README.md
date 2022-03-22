@@ -1,5 +1,5 @@
 # jewel
-**jewel** package with the implementation of _jewel_ method for joint estimation of Gaussian grahical model from multiple datasets
+**jewel** package with the implementation of [_jewel_ method](https://www.mdpi.com/2227-7390/9/17/2105) for joint estimation of Gaussian grahical model from multiple datasets
 
 
 ## Installation
