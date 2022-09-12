@@ -2,33 +2,46 @@
 % Please edit documentation in R/jewel.R
 \name{jewel}
 \alias{jewel}
-\title{Joint node-wise estimation of Gaussian graphical model from multiple datasets}
+\title{Estimate Gaussian graphical models from multiple datasets}
 \usage{
-jewel(X, lambda, Theta = NULL, tol = 0.01, maxIter = 10000, verbose = TRUE)
+jewel(
+  X,
+  lambda1,
+  lambda2 = NULL,
+  Theta = NULL,
+  W = NULL,
+  tol = 0.01,
+  maxIter = 10000,
+  verbose = TRUE
+)
 }
 \arguments{
-\item{X}{List of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix).}
+\item{X}{a list of \code{K} numeric data matrices of \code{n_k} samples and \code{p} variables (\code{n_k} can be different for each matrix).}
 
-\item{lambda}{Regularization parameter which controls the sparsity of the resulting graph - bigger it is, less edges one gets.}
+\item{lambda1}{a number, first regularization parameter (of the common penalty).}
 
-\item{Theta}{List of \code{K} starting regression coefficient matrices of size \code{p} by \code{p}. If not provided, initialized as all zeros and adjacency matrix is initialized as all ones.}
+\item{lambda2}{an optional number, second regularization parameter (of the class-specific penalty). If NULL, set to \code{lambda_2 = lambda_1 * 1.4}}
 
-\item{tol}{Convergence threshold controlling the relative error between iterations. The default value is 0.01.}
+\item{Theta}{an optional list of \code{K} regression coefficient matrices of the size \code{p} by \code{p}. User-provided initialization can be used for warm-start procedures. If NULL, initialized as all zeros.}
 
-\item{maxIter}{Maximum allowed number of iterations. The default value is 10 000.}
+\item{W}{an optional list of \code{K} weights matrices of the size \code{p} by \code{p}. User-provided initialization can be useful when some vertices are believed to be hubs. If NULL, initialized as all ones.}
 
-\item{verbose}{If verbose = FALSE, tracing information printing is disabled. The default value is TRUE.}
+\item{tol}{an optional number, convergence threshold controlling the relative error between iterations. The default value is 0.01.}
+
+\item{maxIter}{an optional number, maximum allowed number of iterations. The default value is 10 000.}
+
+\item{verbose}{if verbose = FALSE, tracing information printing is disabled. The default value is TRUE.}
 }
 \value{
 The following list is returned
 \itemize{
-  \item \code{EstAdjMat} - adjacency matrix of the estimated graph
-  \item \code{Theta} - list of \code{K} estimated covariance matrices of size \code{p} by \code{p}
-  \item \code{residual} - list of \code{K} matrices of residuals of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)
-  \item \code{BIC} - value of Bayesian information criterion
+  \item \code{CommonG} - an adjacency matrix of the common estimated graph (intersection of \code{K} estimated graphs).
+  \item \code{G_list} - a list of \code{K} adjacency matrices for each estimated graph.
+  \item \code{Theta} - a list of \code{K} estimated covariance matrices.
+  \item \code{BIC} – a nueric value of Bayesian information criterion for resulting graphs.
 }
 }
 \description{
-Implementation of the jewel method for estimation of the graph of conditional dependencies between the variables given multiple datasets, 
-i.e. when observations of variables are collected under different conditions.
+This function constructs Gaussian graphical models (i.e. networks of conditional dependencies, direct connections between variables) given several datasets. 
+We assume that datasets contain measurements of the same variables collected under different conditions (different equipmenent, locations, even sub-tupes of disease).
 }

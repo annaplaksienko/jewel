@@ -22,7 +22,7 @@ addZeroDiagonal <- function(M) {
   p <- max(dim(M))
   M_new <- matrix(NA, p, p)
   diag(M_new) <- 0;
-  #replacying everything except the diagonal in the axiliary matrix with Theta
+  #replacing everything except the diagonal in the auxiliary matrix with Theta
   M_new[which(is.na(M_new), arr.ind=TRUE)] <- as.vector(M);
 
   return(M_new)

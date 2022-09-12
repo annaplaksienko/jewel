@@ -2,14 +2,16 @@
 % Please edit documentation in R/estimateLambdaBIC.R
 \name{estimateLambdaBIC}
 \alias{estimateLambdaBIC}
-\title{Estimation of the optimal regularization parameter for jewel method with Bayesian information criterion}
+\title{Estimate the optimal regularization parameter for jewel method with Bayesian information criterion}
 \usage{
-estimateLambdaBIC(X, lambda, makePlot = TRUE)
+estimateLambdaBIC(X, lambda = NULL, tol = 1e-04, makePlot = TRUE)
 }
 \arguments{
-\item{X}{list of \code{K} numeric data matrices of size \code{n_k} by \code{p} (\code{n_k} can be different for each matrix)}
+\item{X}{a list of \code{K} numeric data matrices of \code{n_k} samples and \code{p} variables (\code{n_k} can be different for each matrix).}
 
-\item{lambda}{vector of parameters for which function evaluates BIC}
+\item{lambda}{an optional numeric vector of parameters for which the function evaluates BIC. Users are encouraged to tailor the grid to their specific data. If NULL, the default value is uniform in log sequence from 0.01 to 0.5.}
+
+\item{tol}{an optional number, convergence threshold controlling the relative error between iterations. The smaller it is, more precise are BIC. The default value is 0.0001.}
 
 \item{makePlot}{If makePlot = FALSE, plotting of BIC is disabled. The default value is TRUE.}
 }
@@ -17,10 +19,10 @@ estimateLambdaBIC(X, lambda, makePlot = TRUE)
 The following list is returned
 \itemize{
   \item \code{lambda_opt} - a number, optimal value of regularization parameter according to BIC procedure;
-  \item \code{BIC} - a vector of BICs for each element of input vector \code{lambda}.
+  \item \code{BIC} - a numeric vector of BICs for each element of the grid of \code{lambda}.
 }
 }
 \description{
-Given a grid of regularization parameters, function evaluates Baeysian information criterion (BIC) for each element.
-Optimal lambda is chosen as the one for which BIC's minimum is obtained. Warm start is implemented.
+Function evaluates Baeysian information criterion (BIC) for each element of the grid.
+Optimal lambda is chosen as the one for which BIC's minimum is obtained. Warm start is implemented (matrices computed with the previous \code{lambda} as a starting point for the current \code{lambda}).
 }
