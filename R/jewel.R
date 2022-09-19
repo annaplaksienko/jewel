@@ -1,13 +1,13 @@
 #' Estimate Gaussian graphical models from multiple datasets
 #'
-#' This function constructs Gaussian graphical models (i.e. networks of conditional dependencies, direct connections between variables) given several datasets. 
-#' We assume that datasets contain measurements of the same variables collected under different conditions (different equipmenent, locations, even sub-tupes of disease).
+#' This function estimates Gaussian graphical models (i.e. networks of conditional dependencies, direct connections between variables) given several datasets. 
+#' We assume that datasets contain measurements of the same variables collected under different conditions (different equipment, locations, even sub-types of disease).
 #'
 #' @param X a list of \code{K} numeric data matrices of \code{n_k} samples and \code{p} variables (\code{n_k} can be different for each matrix).
 #' @param lambda1 a number, first regularization parameter (of the common penalty).
 #' @param lambda2 an optional number, second regularization parameter (of the class-specific penalty). If NULL, set to \code{lambda_2 = lambda_1 * 1.4}
 #' @param Theta an optional list of \code{K} regression coefficient matrices of the size \code{p} by \code{p}. User-provided initialization can be used for warm-start procedures. If NULL, initialized as all zeros.
-#' @param W an optional list of \code{K} weights matrices of the size \code{p} by \code{p}. User-provided initialization can be useful when some vertices are believed to be hubs. If NULL, initialized as all ones.
+#' @param W an optional list of \code{K} weights matrices of the size \code{p} by \code{p}. User-provided initialization can be used when some vertices are believed to be hubs. If NULL, initialized as all ones.
 #' @param tol an optional number, convergence threshold controlling the relative error between iterations. The default value is 0.01.
 #' @param maxIter an optional number, maximum allowed number of iterations. The default value is 10 000.
 #' @param verbose if verbose = FALSE, tracing information printing is disabled. The default value is TRUE.
@@ -19,7 +19,7 @@
 #'   \item \code{CommonG} - an adjacency matrix of the common estimated graph (intersection of \code{K} estimated graphs).
 #'   \item \code{G_list} - a list of \code{K} adjacency matrices for each estimated graph.
 #'   \item \code{Theta} - a list of \code{K} estimated covariance matrices.
-#'   \item \code{BIC} – a nueric value of Bayesian information criterion for resulting graphs.
+#'   \item \code{BIC} – a number, value of Bayesian information criterion for resulting graphs.
 #' }
 #' 
 #' @export

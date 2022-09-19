@@ -19,15 +19,15 @@ generateData_rewire(
 \arguments{
 \item{K}{number of graphs/data matrices.}
 
-\item{p}{number of nodes in the true graphs}
+\item{p}{number of nodes in the true graphs.}
 
 \item{n}{a numerical vector of the sample sizes for each desired set of \code{K} data matrices. Can be a vector of one element if the user wishes to obtain only one dataset of \code{K} matrices.}
 
-\item{power}{a number, power of preferential attachment for the Barabasi-Albert algorithm for generation of the scale-free graph. The default value is 1.}
+\item{power}{a number, power of preferential attachment for the Barabasi-Albert algorithm for the generation of the scale-free graph. Bigger number means more connected hubs. The default value is 1.}
 
-\item{m}{number of edges to add at each time step of Barabasi-Albert algorithm for generation of the scale-free graph. Resulting graph has \code{mp - (2m - 1)} edges. The default value is 1.}
+\item{m}{number of edges to add at each step of Barabasi-Albert algorithm for generation of the scale-free graph. Resulting graph has \code{mp - (2m - 1)} edges. The default value is 1.}
 
-\item{perc}{a number, tuning parameter for the difference between graphs. Number of trials to perform in the rewiring procedure of graph is \code{p * perc}. Bigger the number, more different are the graphs.}
+\item{perc}{a number, tuning parameter for the difference between graphs. Number of trials to perform in the rewiring procedure of the first graph is \code{p * perc}. Bigger the number, more different are the graphs.}
 
 \item{int}{a vector of two numbers, \code{a} and \code{b}. Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default values are \code{a = 0.2, b = 0.8}.}
 
@@ -39,14 +39,14 @@ generateData_rewire(
 The following list is returned
  \itemize{
    \item \code{Graphs} – a list of adjacency matrices of the \code{K} generated graphs.
-   \item \code{CommomGraph} - an matrix, common part (intersection) of the \code{K} generated graphs.
-   \item \code{Data} - a list of lists, for each sample size element \code{l} of the input vector \code{n} one obtains \code{K} data matrices, each of the size \code{n_l} by \code{p}.
+   \item \code{CommomGraph} - a matrix, common part (intersection) of the \code{K} generated graphs.
+   \item \code{Data} - a list of lists, for each sample size of the input vector \code{n} one obtains \code{K} data matrices, each of the size \code{n_l} by \code{p}.
    \item \code{Sigma} - a list of \code{K} covariance matrices of the size \code{p} by \code{p}.
 }
 }
 \description{
-Function first generates \code{K} scale-free graphs with \code{p} vertices. They havw the same order ans degree ditribution and share most of the edges, but some edges may vary (user can control how much).
-Function then generates corresponding precision and covariance matrices, all of the size \code{p} by \code{p} (see paper for details).
+Function first generates \code{K} scale-free graphs with \code{p} vertices. They have the same order and degree distribution and share most of the edges, but some edges may vary (user can control how many).
+Function then generates corresponding precision and covariance matrices, all of the size \code{p} by \code{p} (see the paper for the details of the procedure).
 Then for each \code{l}-th element of vector \code{n} it generates \code{K} data matrices, each of the size \code{n_l} by \code{p}, 
 i.e., for the same underlying graphs we can generate several sets of \code{K} datasets with different sample sizes.
 }

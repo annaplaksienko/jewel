@@ -3,7 +3,7 @@ Title: Joint node-wise estimation of Gaussian graphical models from multiple dat
 Version: 2.0.0
 Author: Anna Plaksienko, Claudia Angelini, Daniela De Canditiis
 Maintainer: Anna Plaksienko <anna@plaxienko.com>           
-Description: jewel is a method to estimate networks of conditional dependencies (Gaussian graphical models) from multiple classes of data (similar but not exactly, i.e. measurements of different equipement, in different labs or for subtypes of disease). Package also allows to estimate regularization parameter with Bayesian information criterion  and to generate simulation data. Reference paper to be added.
+Description: jewel is a method to estimate networks of conditional dependencies (Gaussian graphical models) from multiple classes of data (similar but not exactly, i.e. measurements on different equipement, in different locations or for various subtypes). Package also allows to estimate regularization parameter with Bayesian information criterion  and to generate simulation data. Reference paper to be added.
 Depends: R (>= 3.6.0)
 Imports: Matrix, matrixcalc, MASS, SMUT, igraph, parallel, purrr
 URL: https://github.com/annaplaksienko/jewel

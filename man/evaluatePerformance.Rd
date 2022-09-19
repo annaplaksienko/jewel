@@ -2,18 +2,18 @@
 % Please edit documentation in R/evaluatePerformance.R
 \name{evaluatePerformance}
 \alias{evaluatePerformance}
-\title{Evaluation of graph estimation methods perfomance if true graph is known}
+\title{Evaluation of graph estimation method's performance if the true graph is known.}
 \usage{
 evaluatePerformance(G, G_hat)
 }
 \arguments{
-\item{G}{True graph's adjacency matrix}
+\item{G}{true graph's adjacency matrix.}
 
-\item{G_hat}{Estimated graph's adjacenct matrix. Must have the same dimensions as \code{G}.}
+\item{G_hat}{estimated graph's adjacency matrix. Must have the same dimensions as \code{G}.}
 }
 \value{
-performance - vector of length 4 with TP, TN, FP, FN
+performance - a numeric vector of length 4 with TP, TN, FP, FN.
 }
 \description{
-Function compares adjacency matrices of true and estimated simple graphs and calculates the number of true positives (correctly estimated edges), true negatives (correctly estimated absence of edges), false positives (edges present in the estimator but not in the true graph) and false negatives (failure to identify an edge).
+Function compares adjacency matrices of the true and estimated simple graphs and calculates the number of true positives (correctly estimated edges), true negatives (correctly estimated absence of edges), false positives (edges present in the estimator but not in the true graph) and false negatives (failure to identify an edge).
 }

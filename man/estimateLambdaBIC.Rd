@@ -11,7 +11,7 @@ estimateLambdaBIC(X, lambda = NULL, tol = 1e-04, makePlot = TRUE)
 
 \item{lambda}{an optional numeric vector of parameters for which the function evaluates BIC. Users are encouraged to tailor the grid to their specific data. If NULL, the default value is uniform in log sequence from 0.01 to 0.5.}
 
-\item{tol}{an optional number, convergence threshold controlling the relative error between iterations. The smaller it is, more precise are BIC. The default value is 0.0001.}
+\item{tol}{an optional number, convergence threshold controlling the relative error between iterations. The smaller it is, more precise is BIC. The default value is 0.0001.}
 
 \item{makePlot}{If makePlot = FALSE, plotting of BIC is disabled. The default value is TRUE.}
 }
@@ -24,5 +24,5 @@ The following list is returned
 }
 \description{
 Function evaluates Baeysian information criterion (BIC) for each element of the grid.
-Optimal lambda is chosen as the one for which BIC's minimum is obtained. Warm start is implemented (matrices computed with the previous \code{lambda} as a starting point for the current \code{lambda}).
+Optimal lambda is chosen as the one for which BIC's minimum is obtained. Warm start is implemented (matrices computed with the previous parameter are used as a starting point for the current element of the grid).
 }

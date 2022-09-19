@@ -24,7 +24,7 @@ jewel(
 
 \item{Theta}{an optional list of \code{K} regression coefficient matrices of the size \code{p} by \code{p}. User-provided initialization can be used for warm-start procedures. If NULL, initialized as all zeros.}
 
-\item{W}{an optional list of \code{K} weights matrices of the size \code{p} by \code{p}. User-provided initialization can be useful when some vertices are believed to be hubs. If NULL, initialized as all ones.}
+\item{W}{an optional list of \code{K} weights matrices of the size \code{p} by \code{p}. User-provided initialization can be used when some vertices are believed to be hubs. If NULL, initialized as all ones.}
 
 \item{tol}{an optional number, convergence threshold controlling the relative error between iterations. The default value is 0.01.}
 
@@ -38,10 +38,10 @@ The following list is returned
   \item \code{CommonG} - an adjacency matrix of the common estimated graph (intersection of \code{K} estimated graphs).
   \item \code{G_list} - a list of \code{K} adjacency matrices for each estimated graph.
   \item \code{Theta} - a list of \code{K} estimated covariance matrices.
-  \item \code{BIC} – a nueric value of Bayesian information criterion for resulting graphs.
+  \item \code{BIC} – a number, value of Bayesian information criterion for resulting graphs.
 }
 }
 \description{
-This function constructs Gaussian graphical models (i.e. networks of conditional dependencies, direct connections between variables) given several datasets. 
-We assume that datasets contain measurements of the same variables collected under different conditions (different equipmenent, locations, even sub-tupes of disease).
+This function estimates Gaussian graphical models (i.e. networks of conditional dependencies, direct connections between variables) given several datasets. 
+We assume that datasets contain measurements of the same variables collected under different conditions (different equipment, locations, even sub-types of disease).
 }

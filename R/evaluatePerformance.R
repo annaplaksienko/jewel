@@ -1,11 +1,11 @@
-#' Evaluation of graph estimation methods perfomance if true graph is known
+#' Evaluation of graph estimation method's performance if the true graph is known.
 #'
-#' Function compares adjacency matrices of true and estimated simple graphs and calculates the number of true positives (correctly estimated edges), true negatives (correctly estimated absence of edges), false positives (edges present in the estimator but not in the true graph) and false negatives (failure to identify an edge).
+#' Function compares adjacency matrices of the true and estimated simple graphs and calculates the number of true positives (correctly estimated edges), true negatives (correctly estimated absence of edges), false positives (edges present in the estimator but not in the true graph) and false negatives (failure to identify an edge).
 #'
-#' @param G True graph's adjacency matrix
-#' @param G_hat Estimated graph's adjacenct matrix. Must have the same dimensions as \code{G}.
+#' @param G true graph's adjacency matrix.
+#' @param G_hat estimated graph's adjacency matrix. Must have the same dimensions as \code{G}.
 #'
-#' @return performance - vector of length 4 with TP, TN, FP, FN
+#' @return performance - a numeric vector of length 4 with TP, TN, FP, FN.
 #'
 #' @export
 
