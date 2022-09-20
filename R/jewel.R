@@ -25,10 +25,10 @@
 #' @export
 
 
-jewel <- function (X, lambda1, lambda2 = NULL, 
-                    Theta = NULL, W = NULL,
-                    tol = 0.01, maxIter = 10000,
-                    verbose = TRUE) {
+jewel <- function(X, lambda1, lambda2 = NULL, 
+                  Theta = NULL, W = NULL,
+                  tol = 0.01, maxIter = 10000,
+                  verbose = TRUE) {
   
   #normalize the data
   X <- mapply(function(y) scale(y), X, SIMPLIFY = FALSE)

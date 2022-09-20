@@ -37,11 +37,11 @@ estimateLambdaBIC <- function (X, lambda = NULL, tol = 0.0001,
     if (l != 1) {
       jewel_result <- jewel(X, lambda[l],
                              Theta = Theta_warm_up,
-                             tol,
+                             tol = tol,
                              verbose = FALSE);
     } else {
       jewel_result <- jewel(X, lambda[l],
-                             tol,
+                             tol = tol,
                              verbose = FALSE);
     }
     
