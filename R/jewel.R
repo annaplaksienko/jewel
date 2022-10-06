@@ -32,12 +32,24 @@ jewel <- function(X, lambda1, lambda2 = NULL,
   
   #normalize the data
   X <- mapply(function(y) scale(y), X, SIMPLIFY = FALSE)
-  
+ 
   #get the number of input matrices
   K <- length(X)
   #get the dimensions of each matrix
   n_k <- sapply(X, function(x) dim(x)[1])
   p <- dim(X[[1]])[2]
+  
+  #check that variables are the same across classes
+  vars <- colnames(X[[1]])
+  if (sum(sapply(2:K, function(k) sum(colnames(X[[k]]) %in% vars) == p)) != (K - 1) |
+      sum(sapply(2:K, function(k) sum(vars %in% colnames(X[[k]])) == p)) != (K - 1)) {
+    stop("Variables don't match across classes. Check colnames of each element of X.")
+  } else {
+    #if variables are the same, make sure they are in the same order
+    for (k in 1:K) {
+      X[[k]] <- X[[k]][, vars]
+    }
+  }
   
   #assemble a long X matrix (faster than lists)
   Xl <- do.call(rbind, X)
@@ -91,10 +103,18 @@ jewel <- function(X, lambda1, lambda2 = NULL,
   
   #if weights are not provided, set them to 1
   if (is.null(W) == 1) {
-    W <- matrix(1, nrow = (p - 1) * K, ncol = p);
+    W <- matrix(1, nrow = (p - 1) * K, ncol = p)
+    colnames(W) <- vars
   } else {
-    W <- lapply(W, removeDiagonal)
-    W <- do.call(rbind, W)
+    if (sum(sapply(1:K, function(k) sum(colnames(W[[k]]) %in% vars) == p)) != K |
+        sum(sapply(1:K, function(k) sum(vars %in% colnames(W[[k]])) == p)) != K) {
+      stop("There are some colnames that do not match between provided X and W. Please check.")
+    } else {
+      #order weights as variables in X
+      W <- lapply(W, function(x) x[, vars])
+      W <- lapply(W, removeDiagonal)
+      W <- do.call(rbind, W)
+    }
   }
   
   #if second regularization parameter not provided, set it to lambda_2 = 1.4 * lambda_1
