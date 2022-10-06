@@ -35,4 +35,15 @@ constructWeights <- function(d, K = NULL) {
   W <- vector(mode = "list", length = K)
   W <- lapply(d, function(x) 1 / sqrt(x %*% t(x)))
   W <- lapply(W, function(x) x / max(x))
+  names(W) <- sapply(1:K, function(i) sprintf("W%i", i))
+  
+  if (sum(sapply(test4, function(x) is.null(names(x)))) != 0) {
+    warning("Some of degree vectors aren't named. This may lead to the wrong match between variables and their degrees later in jewel function. Please check.")
+  } else {
+    for (k in 1:K) {
+      rownames(W[[k]]) <- colnames(W[[k]])
+    }
+  }
+  
+  return(W = W)
 }
