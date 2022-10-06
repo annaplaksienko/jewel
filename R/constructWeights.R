@@ -17,7 +17,7 @@
 #'
 #' @export
 
-construct_weights <- function(d, K = NULL) {
+constructWeights <- function(d, K = NULL) {
   if (class(d) == "list" && length(d) > 1) {
     K <- length(d)
   } else {
