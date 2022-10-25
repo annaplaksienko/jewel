@@ -13,27 +13,35 @@ install_github("annaplaksienko/jewel")
 
 ## Example
 
-This is a minimal working example of all **jewel** package functions. See jewel_manual.pdf for documentation of the package.
+This is a minimal working example of all **jewel** package functions. See jewel_manual.pdf for documentation of the package. See also real data example for better understanding.
 
 ```
 library(jewel)
 
 #First, generate the data: 3 datasets with 100 variables and 50 samples.
 #Their underlying graphs will have a quarter of edges not in common (tune with perc parameter).
-data <- generateData_rewire(K = 3, p = 100, n = 50, perc = 0.08)
+K <- 3
+p <- 100
+n <- 50
+data <- generateData_rewire(K = K, p = p, n = n)
 G_list_true <- data$Graphs
 G_common_true <- data$CommonGraph
 X <- data$Data
 
-#estimate regularization parameter with Bayesian information criterion
-#note that this part can be time consuming
-#if you want to skip this step – use any value of lambda as "optimal" in the next steps
-lambda_BIC <- estimateLambdaBIC(X)$lambda_opt
+#let's assume we have prior information on whether some degrees are hubs
+#to simulate that, we'll choose 3% of vertices with the highest degrees and put their degree to 10 ("hub")
+#the rest will be put to 1
+#we use only one graph because in simulation the degree distribution is the same by construction for all k
+true_degrees <- rowSums(G_list_true[[1]])
+cut <- sort(true_degrees, decreasing = TRUE)[ceiling(p * 0.03)]
+apriori_hubs <- ifelse(true_degrees >= cut, 10, 1)
+#now we use that to construct weights for penalization problem
+W <- constructWeights(apriori_hubs, K = K)
 
-#estimate the graphs with lambda_BIC
-res_BIC <- jewel(X, lambda1 = lambda_BIC)
-G_list_est <- res_BIC$G_list
-G_common_est <- res_BIC$CommonG
+#estimate the graphs with user chosen lambda1 and weights W
+res <- jewel(X, lambda1 = 0.2, W = W)
+G_list_est <- res$G_list
+G_common_est <- res$CommonG
 
 #now evaluate results
 evaluatePerformance(G = G_common_true, G_hat = G_common_est)

@@ -41,15 +41,20 @@ jewel <- function(X, lambda1, lambda2 = NULL,
   
   #check that variables are the same across classes
   vars <- colnames(X[[1]])
-  if (sum(sapply(2:K, function(k) sum(colnames(X[[k]]) %in% vars) == p)) != (K - 1) |
-      sum(sapply(2:K, function(k) sum(vars %in% colnames(X[[k]])) == p)) != (K - 1)) {
-    stop("Variables don't match across classes. Check colnames of each element of X.")
+  if (is.null(vars)) {
+    warning("Colnames of some datasets are empty. Be aware that without variable names there is no check if their order (columns order) is the same between datasets. That can lead to wrong estimation.")
   } else {
-    #if variables are the same, make sure they are in the same order
-    for (k in 1:K) {
-      X[[k]] <- X[[k]][, vars]
+    if (sum(sapply(2:K, function(k) sum(colnames(X[[k]]) %in% vars) == p)) != (K - 1) |
+        sum(sapply(2:K, function(k) sum(vars %in% colnames(X[[k]])) == p)) != (K - 1)) {
+      stop("Variables don't match across classes. Check colnames of each element of X.")
+    } else {
+      #if variables are the same, make sure they are in the same order
+      for (k in 1:K) {
+        X[[k]] <- X[[k]][, vars]
+      }
     }
   }
+  
   
   #assemble a long X matrix (faster than lists)
   Xl <- do.call(rbind, X)
@@ -102,23 +107,27 @@ jewel <- function(X, lambda1, lambda2 = NULL,
   
   
   #if weights are not provided, set them to 1
-  if (is.null(W) == 1) {
+  if (is.null(W)) {
     W <- matrix(1, nrow = (p - 1) * K, ncol = p)
     colnames(W) <- vars
   } else {
-    if (sum(sapply(1:K, function(k) sum(colnames(W[[k]]) %in% vars) == p)) != K |
+    if (sum(sapply(W, function(x) !is.null(colnames(x)))) != K) {
+      warning("Colnames of some weight matrices are empty. Be aware that without variable names there is no check if variable order matches with the one in datasets provided. That can lead to wrong estimation.")
+      W <- lapply(W, removeDiagonal)
+      W <- do.call(rbind, W)
+    } else if (sum(sapply(1:K, function(k) sum(colnames(W[[k]]) %in% vars) == p)) != K |
         sum(sapply(1:K, function(k) sum(vars %in% colnames(W[[k]])) == p)) != K) {
       stop("There are some colnames that do not match between provided X and W. Please check.")
     } else {
       #order weights as variables in X
-      W <- lapply(W, function(x) x[, vars])
+      W <- lapply(W, function(x) x[vars, vars])
       W <- lapply(W, removeDiagonal)
       W <- do.call(rbind, W)
     }
   }
   
   #if second regularization parameter not provided, set it to lambda_2 = 1.4 * lambda_1
-  if (is.null(lambda2) == 1) {
+  if (is.null(lambda2)) {
     lambda2 <- lambda1 * 1.4
   }
   
@@ -286,6 +295,7 @@ jewel <- function(X, lambda1, lambda2 = NULL,
   #construct a list of matrices from long matrices
   Theta_list <- rep(list(NA), K)
   A_list <- rep(list(NA), K)
+  names(A_list) <- names(X)
   
   for (i in 1:K) {
     Theta_list[[i]] <- addZeroDiagonal(Theta[((p - 1) * (i - 1) + 1) : ((p - 1) * i), ])

@@ -18,11 +18,14 @@
 #' @export
 
 constructWeights <- function(d, K = NULL) {
+  W <- vector(mode = "list", length = K)
+  
   if (class(d) == "list" && length(d) > 1) {
     K <- length(d)
+    names(W) <- names(d)
   } else {
     if (is.null(K)) {
-      stop("Please provide numebr of classes K.")
+      stop("Please provide the number of classes K.")
     } else {
       d_list <- vector(mode = "list", length = K)
       for (k in 1:K) {
@@ -37,7 +40,7 @@ constructWeights <- function(d, K = NULL) {
   W <- lapply(W, function(x) x / max(x))
   names(W) <- sapply(1:K, function(i) sprintf("W%i", i))
   
-  if (sum(sapply(test4, function(x) is.null(names(x)))) != 0) {
+  if (sum(sapply(d, function(x) is.null(names(x)))) != 0) {
     warning("Some of degree vectors aren't named. This may lead to the wrong match between variables and their degrees later in jewel function. Please check.")
   } else {
     for (k in 1:K) {
