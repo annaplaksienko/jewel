@@ -38,8 +38,8 @@ apriori_hubs <- ifelse(true_degrees >= cut, 10, 1)
 #now we use that to construct weights for penalization problem
 W <- constructWeights(apriori_hubs, K = K)
 
-#estimate the graphs with user chosen lambda1 and weights W
-res <- jewel(X, lambda1 = 0.2, W = W)
+#estimate the graphs with user chosen lambda1 and weights W and with stability selection procedure
+res <- jewel(X, lambda1 = 0.1, W = W, stability = TRUE)
 G_list_est <- res$G_list
 G_common_est <- res$CommonG
 
