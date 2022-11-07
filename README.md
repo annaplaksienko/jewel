@@ -1,6 +1,5 @@
 # jewel
-**jewel** package with the implementation ofthe updated version of the [_jewel_ method](https://www.mdpi.com/2227-7390/9/17/2105) for joint estimation of Gaussian graphical models (i.e. networks of conditional dependencies, direct connections between variables) given several datasets. We assume that datasets contain measurements of the same variables collected under different conditions (different equipment, locations, even sub-types of disease). Test3
-
+**jewel** package with the implementation ofthe updated version of the [_jewel_ method](https://www.mdpi.com/2227-7390/9/17/2105) for joint estimation of Gaussian graphical models (i.e. networks of conditional dependencies, direct connections between variables) given several datasets. We assume that datasets contain measurements of the same variables collected under different conditions (different equipment, locations, even sub-types of disease). 
 
 ## Installation
 To install from github, run

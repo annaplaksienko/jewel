@@ -73,6 +73,9 @@ jewel <- function(X, lambda1, lambda2 = NULL,
 
     G_list <- vector(mode = "list", length = K)
     G_list <- lapply(temp_G, function(x) x >= stability_nsubsets * stability_frac)
+    if(!is.null(names(X))) {
+      names(G_list) <- names(X)
+    }
     
     CommonG <- Reduce('+', G_list)
     CommonG <- (CommonG == K)
