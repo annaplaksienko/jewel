@@ -1,8 +1,6 @@
 Package: jewel
 Title: Graphical models estimation from multiple sources
 Version: 2.0.0
-Author: Anna Plaksienko, Claudia Angelini, Daniela De Canditiis
-Maintainer: Anna Plaksienko <anna@plaxienko.com>    
 Authors@R: c(
     person("Anna", "Plaksienko", 
     email = "anna@plaxienko.com", 
