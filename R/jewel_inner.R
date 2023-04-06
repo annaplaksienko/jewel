@@ -285,11 +285,6 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
   
   if (verbose) message("2/3 Iterations completed. Assembling the output...")
   
-  #evaluate BIC
-  BIC <- sum(sapply(index, function(c) n_k[c] * sum(apply(R_common[nindex == c, ], 2,
-                                                          function (y) log( sum(y^2) ) ) ) ) ) +
-    sum(sapply(n_k, log) * sapply(index, function(c) sum(Active_K_long[nindex == c, ]) / 2))
-  
   #construct a list of matrices from long matrices
   Theta_list <- rep(list(NA), K)
   A_list <- rep(list(NA), K)
@@ -309,6 +304,5 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
   
   return(list(G_list = A_list,
               CommonG = A,
-              Theta = Theta_list,
-              BIC = BIC));
+              Theta = Theta_list));
 }
