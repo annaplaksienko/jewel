@@ -1,5 +1,5 @@
 Package: jewel
-Title: Graphical models estimation from multiple sources
+Title: Graphical Models Estimation from Multiple Sources
 Version: 2.0.0
 Authors@R: c(
     person("Anna", "Plaksienko", 
@@ -12,11 +12,14 @@ Authors@R: c(
     person("Daniela", "De Canditiis", 
     role = c("aut"),
     comment = c(ORCID = "0000-0002-3022-3411")))
-Description: Estimates networks of conditional dependencies (Gaussian graphical models) from multiple classes of data (similar but not exactly, i.e. measurements on different equipement, in different locations or for various subtypes). Package also allows to generate simulation data and evaluate the performance. Based on https://doi.org/10.3390/math10213983
+Description: Estimates networks of conditional dependencies (Gaussian graphical models) from multiple classes of data (similar but not exactly, i.e. measurements on different equipement, in different locations or for various subtypes). Package also allows to generate simulation data and evaluate the performance. Based on <doi.org/10.3390/math10213983>.
 Depends: R (>= 3.6.0)
 Imports: Matrix, matrixcalc, MASS, SMUT, igraph, parallel, purrr
 URL: https://github.com/annaplaksienko/jewel
 License: GPL-2
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
