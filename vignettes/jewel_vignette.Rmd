@@ -1,0 +1,71 @@
+---
+title: "jewel_vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{jewel_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(jewel)
+```
+
+In this vignette we demonstrate the usage of the *jewel* method for the estimation of networks. The vignette consists of three parts: generation of the artifical missing values into example dataset (since we need to know the true values for the performance evaluation), application of *jewel* and performance evaluation (we compare imputed values with the true ones).
+
+## Data generation
+
+First, generate the data: 3 datasets with 100 variables and 50 samples. Their underlying graphs will have a quarter of edges not in common (can be tuned with _perc_ parameter).
+```
+K <- 3
+p <- 100
+n <- 50
+data <- generateData_rewire(K = K, p = p, n = n)
+G_list_true <- data$Graphs
+G_common_true <- data$CommonGraph
+X <- data$Data
+```
+
+## Applying jewel
+
+Method _jewel_ asks for some prior information on hubs if that is available to you. 
+Let's assume we do know which vertices are hubs. To simulate that, we'll choose 3% of vertices with the highest degrees and put their degree to 10 ("hub"), while the rest is put to 1. Here we use only one graph because in simulation the degree distribution is the same by construction for all graphs.
+
+```
+true_degrees <- rowSums(G_list_true[[1]])
+cut <- sort(true_degrees, decreasing = TRUE)[ceiling(p * 0.03)]
+apriori_hubs <- ifelse(true_degrees >= cut, 10, 1)
+```
+Now construct the weights.
+
+```
+W <- constructWeights(apriori_hubs, K = K)
+```
+
+And now we estimate the graphs with user chosen $\lambda_1$ and weights $\mathbf{W}$ and with stability selection procedure
+
+```
+res <- jewel(X, lambda1 = 0.1, W = W, stability = TRUE)
+G_list_est <- res$G_list
+G_common_est <- res$CommonG
+```
+
+## Performance evaluation
+
+```
+evaluatePerformance(G = G_common_true, G_hat = G_common_est)
+mapply(evaluatePerformance, G_list_true, G_list_est)
+```
+
+## Session info
+
+```{r sessionInfo}
+sessionInfo()
+```
