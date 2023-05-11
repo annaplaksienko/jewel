@@ -140,7 +140,7 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
   while (numIter <= maxIter && check_conv > tol) {
     
     numIter <- numIter + 1
-    if (verbose) message(paste("jewel: iteration number", numIter - 1))
+    if (verbose) message("jewel: iteration number ", numIter - 1)
     
     Theta_old <- Theta;
     
@@ -280,8 +280,8 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
     check_conv <- sum(abs(Theta - Theta_old)) / (sum(abs(Theta_old)) + eps)
   }
   
-  message((paste0("jewel: total number of iterations is ", numIter - 1, 
-                  " and the error is ", check_conv)))
+  if (verbose) message("jewel: total number of iterations is ", numIter - 1, 
+                  " and the error is ", round(check_conv, digits = 5))
   
   if (verbose) message("2/3 Iterations completed. Assembling the output...")
   

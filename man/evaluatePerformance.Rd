@@ -17,3 +17,16 @@ performance - a numeric vector of length 4 with TP, TN, FP, FN.
 \description{
 Function compares adjacency matrices of the true and estimated simple graphs and calculates the number of true positives (correctly estimated edges), true negatives (correctly estimated absence of edges), false positives (edges present in the estimator but not in the true graph) and false negatives (failure to identify an edge).
 }
+\examples{
+{
+K <- 3
+p <- 50
+n <- 20
+data <- generateData_rewire(K = K, p = p, n = n, ncores = 1, verbose = FALSE)
+G_common_true <- data$CommonGraph
+X <- data$Data
+res <- jewel(X, lambda1 = 0.25)
+G_common_est <- res$CommonG
+evaluatePerformance(G = G_common_true, G_hat = G_common_est)
+}
+}

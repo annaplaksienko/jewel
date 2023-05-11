@@ -24,3 +24,16 @@ W - a list of \code{K} numeric matrices of the size \code{p} by \code{p}
 \description{
 Function takes a numerical vector of vertices degrees and constructs weights with the rule \code{W_ij = 1 / sqrt(d_i * d_j)} and then the whole matrix is normilized by the maximum.
 }
+\examples{
+{
+K <- 3
+p <- 50
+n <- 20
+data <- generateData_rewire(K = K, p = p, n = n, ncores = 1, verbose = FALSE)
+G_list_true <- data$Graphs
+true_degrees <- rowSums(G_list_true[[1]])
+cut <- sort(true_degrees, decreasing = TRUE)[ceiling(p * 0.03)]
+apriori_hubs <- ifelse(true_degrees >= cut, 10, 1)
+W <- constructWeights(apriori_hubs, K = K)
+}
+}

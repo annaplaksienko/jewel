@@ -16,11 +16,24 @@
 #' @return W - a list of \code{K} numeric matrices of the size \code{p} by \code{p}
 #'
 #' @export
+#' 
+#' @examples
+#' {
+#' K <- 3
+#' p <- 50
+#' n <- 20
+#' data <- generateData_rewire(K = K, p = p, n = n, ncores = 1, verbose = FALSE)
+#' G_list_true <- data$Graphs
+#' true_degrees <- rowSums(G_list_true[[1]])
+#' cut <- sort(true_degrees, decreasing = TRUE)[ceiling(p * 0.03)]
+#' apriori_hubs <- ifelse(true_degrees >= cut, 10, 1)
+#' W <- constructWeights(apriori_hubs, K = K)
+#' }
 
 constructWeights <- function(d, K = NULL) {
   W <- vector(mode = "list", length = K)
   
-  if (class(d) == "list" && length(d) > 1) {
+  if (is.list(d) && length(d) > 1) {
     K <- length(d)
     names(W) <- names(d)
   } else {

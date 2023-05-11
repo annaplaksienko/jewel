@@ -7,13 +7,26 @@
 #'
 #' @param K number of graphs/data matrices.
 #' @param p number of nodes in the true graphs.
-#' @param n a numerical vector of the sample sizes for each desired set of \code{K} data matrices. Can be a vector of one element if the user wishes to obtain only one dataset of \code{K} matrices.
-#' @param power a number, power of preferential attachment for the Barabasi-Albert algorithm for the generation of the scale-free graph. Bigger number means more connected hubs. The default value is 1.
-#' @param m number of edges to add at each step of Barabasi-Albert algorithm for generation of the scale-free graph. Resulting graph has \code{mp - (2m - 1)} edges. The default value is 1.
-#' @param perc a number, tuning parameter for the difference between graphs. Number of trials to perform in the rewiring procedure of the first graph is \code{p * perc}. Bigger the number, more different are the graphs.
-#' @param int a vector of two numbers, \code{a} and \code{b}. Entries of precision matrices are sampled from the uniform distribution on the interval \code{[-b, -a] + [a, b]}. The default values are \code{a = 0.2, b = 0.8}.
-#' @param makePlot If makePlot = FALSE, plotting of the generated graphs is disabled. The default value is TRUE.
-#' @param verbose If verbose = FALSE, tracing information printing is disabled. The default value is TRUE.
+#' @param n a numerical vector of the sample sizes for each desired set of 
+#' \code{K} data matrices. Can be a vector of one element if the user wishes to 
+#' obtain only one dataset of \code{K} matrices.
+#' @param power a number, power of preferential attachment for the Barabasi-Albert 
+#' algorithm for the generation of the scale-free graph. Bigger number means 
+#' more connected hubs. The default value is 1.
+#' @param m number of edges to add at each step of Barabasi-Albert algorithm 
+#' for generation of the scale-free graph. The default value is 1.
+#' @param perc a number, tuning parameter for the difference between graphs. 
+#' Number of trials to perform in the rewiring procedure of the first graph is 
+#' \code{p * perc}. Bigger the number, more different are the graphs.
+#' @param int a vector of two numbers, \code{a} and \code{b}. Entries of 
+#' precision matrices are sampled from the uniform distribution on the interval 
+#' \code{[-b, -a] + [a, b]}. The default values are \code{a = 0.2, b = 0.8}.
+#' @param ncores number of cores to use in parallel data generation. 
+#' If \code{NULL}, set to \eqn{\#physical cores - 1}.
+#' @param makePlot If makePlot = FALSE, plotting of the generated graphs is 
+#' disabled. The default value is TRUE.
+#' @param verbose If verbose = FALSE, tracing information printing is disabled. 
+#' The default value is TRUE.
 #'
 #' @importFrom igraph barabasi.game as_adjacency_matrix graph_from_adjacency_matrix plot.igraph intersection gsize rewire ecount keeping_degseq
 #' @importFrom MASS mvrnorm
@@ -31,11 +44,14 @@
 #'    \item \code{Sigma} - a list of \code{K} covariance matrices of the size \code{p} by \code{p}.
 #' }
 #' @export
+#' 
+#' @examples
+#' data <- generateData_rewire(K = 3, p = 50, n = 20, ncores = 1, verbose = FALSE)
 
 generateData_rewire <- function (K, p, n,
                                  power = 1, m = 1, perc = 0.05, 
                                  int = NULL,
-                                 makePlot = TRUE, verbose = TRUE) {
+                                 ncores = NULL, makePlot = TRUE, verbose = TRUE) {
   
   generation <- function(g) {
     
@@ -60,8 +76,7 @@ generateData_rewire <- function (K, p, n,
     #package matrixcalc
     SymPosDefCheck <- is.positive.definite(as.matrix(Omega))
     if (SymPosDefCheck == 0) {
-      print("Some matrix is not symmmetric positive definite")
-      return("Some matrix is not symmmetric positive definite");
+      return("Some matrix is not symmmetric positive definite")
     }
     
     #covariance matrices
@@ -113,9 +128,8 @@ generateData_rewire <- function (K, p, n,
   common_size <- round(sum(G) / 2)
   diff <- 100 - round(common_size / size * 100)
   
-  message(paste("Size of each graph is", size, "edges."))
-  message(paste("Size of the common part is ", common_size, " edges. 
-                Difference is ", diff, "%.", sep = ""))
+  if (verbose) message("Size of each graph is ", size, " edges.")
+  if (verbose) message("Size of the common part is ", common_size, " edges. Difference is ", diff, "%.")
   
   if (verbose) message("2/3 Completed. Constructing the data...")
   
@@ -141,7 +155,9 @@ generateData_rewire <- function (K, p, n,
   
   if (.Platform$OS.type == "windows") {
     ncores <- 1
-  } else ncores <- detectCores(logical = FALSE) - 1
+  } else if (is.null(ncores)) {
+    ncores <- detectCores(logical = FALSE) - 1 
+  } 
   
   data <- mclapply(G_list, generation, mc.cores = ncores)
   
