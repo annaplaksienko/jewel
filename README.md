@@ -12,3 +12,5 @@ To see the vignette, run
 library("jewel"")
 browseVignettes("jewel")
 ```
+
+If you mention the method or use the package, kindly refer to https://www.mdpi.com/2227-7390/9/17/2105 in your citation.
