@@ -1,6 +1,6 @@
 Package: jewel
 Title: Graphical Models Estimation from Multiple Sources
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: c(
     person("Anna", "Plaksienko", 
     email = "anna@plaxienko.com", 

@@ -80,7 +80,7 @@ generateData_rewire <- function (K, p, n,
     }
     
     #covariance matrices
-    OmegaInv <- chol2inv(as.matrix(Omega))
+    OmegaInv <- solve(as.matrix(Omega))
     Sigma <- OmegaInv;
     
     for (i in 1:p) {
