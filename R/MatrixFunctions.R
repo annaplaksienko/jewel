@@ -7,7 +7,8 @@
 #' @keywords internal
 
 removeDiagonal <- function(M) {
-  matrix(M[lower.tri(M, diag = F) | upper.tri(M, diag = F)], nrow = nrow(M) - 1, ncol = ncol(M))
+  matrix(M[lower.tri(M, diag = F) | upper.tri(M, diag = F)], 
+         nrow = nrow(M) - 1, ncol = ncol(M))
 }
 
 #' Adding zero diagonal to a matrix

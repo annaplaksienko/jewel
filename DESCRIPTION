@@ -1,6 +1,6 @@
 Package: jewel
 Title: Graphical Models Estimation from Multiple Sources
-Version: 2.0.1
+Version: 2.0.2
 Authors@R: c(
     person("Anna", "Plaksienko", 
     email = "anna@plaxienko.com", 
@@ -18,7 +18,7 @@ Imports: Matrix, matrixcalc, MASS, SMUT, igraph, parallel, purrr
 URL: https://github.com/annaplaksienko/jewel
 License: GPL-2
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Suggests: 
     knitr,
     rmarkdown

@@ -70,7 +70,7 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
     Active_K_long <- matrix(TRUE, nrow = (p - 1) * K, ncol = p);
     R_specific <- R_common <- Xl;
     
-    #auxilary, find better solution later
+    #auxilary
     Gamma_list <- rep(list(NA), K)
     Xi_list <- rep(list(NA), K)
   } else {
@@ -82,11 +82,11 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
      
     Active <- lapply(Theta, function(x) x != 0)
     Active <- Reduce('+', Active)
-    Active <- (Active == 3)
+    Active <- (Active == K)
     
-    Xi <- lapply(Theta, function(x) x[Active])
+    Xi <- lapply(Theta, function(x) x * Active)
     Gamma <- mapply(function(x, y) x - y,
-                    Theta, Xi)
+                    Theta, Xi, SIMPLIFY = FALSE)
     
     Active_K <- lapply(Gamma, function(x) removeDiagonal(x != 0))
     Active_K_long <- do.call(rbind, Active_K)
@@ -97,6 +97,9 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
     
     Xi <- lapply(Xi, removeDiagonal)
     Xi <- do.call(rbind, Xi)
+    
+    Theta <- lapply(Theta, removeDiagonal)
+    Theta <- do.call(rbind, Theta)
     
     #auxilary for residual update
     Gamma_list <- rep(list(NA), K)
@@ -124,7 +127,8 @@ jewel_inner <- function(X, lambda1, lambda2 = NULL,
     }
   }
   
-  #if second regularization parameter not provided, set it to lambda_2 = 1.4 * lambda_1
+  #if second regularization parameter not provided, 
+  #set it to lambda_2 = 1.4 * lambda_1
   if (is.null(lambda2)) {
     lambda2 <- lambda1 * 1.4
   }
