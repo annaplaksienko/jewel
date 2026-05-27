@@ -118,7 +118,7 @@ generateData_rewire <- function (K, p, n,
   if (K > 1) {
     for (k in 2:K) {
       G_list[[k]] <- rewire(G_list[[1]], 
-                            with = keeping_degseq(niter = gsize(G_list[[1]]) * perc))
+                            with = keeping_degseq(niter = round(gsize(G_list[[1]]) * perc)))
     }
   }
   
